@@ -18,6 +18,10 @@ Project is created with:
 
 ### Before setup
 you have to setup the [back-end](https://github.com/koku-ulrich/pokemon_back) projet
+    
+```
+yarn serve
+```
 
 ### Setup
 This project uses ```vue.js``` and ```yarn``` as the dependency manager.
