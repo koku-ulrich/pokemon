@@ -17,7 +17,7 @@ Project is created with:
 
 
 ### Before setup
-you have to setup the [back-end](https://github.com/koku-ulrich/pokemon_api) projet
+you have to setup the [api](https://github.com/koku-ulrich/pokemon_api) projet
     
 ```
 yarn serve
