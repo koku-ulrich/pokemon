@@ -21,34 +21,13 @@
   </div>
 </template>
 <script>
-import {api} from "@/helpers/http-common";
-
 export default {
   name: 'pokemon-card',
   components: {},
-  props: ["id"],
+  props: ["pokemon"],
   data() {
     return {
-      pokemon:{}
     }
   },
-  computed: {
-
-  },
-  beforeMount() {
-    this.getPokemonById()
-  },
-  mounted() {
-    this.getPokemonById()
-  },
-  methods: {
-    async getPokemonById(){
-      await api.get("/pokemon/"+this.id).then(response => {
-        this.pokemon =  response.data.pokemon
-      }).catch(errors =>{
-        return errors
-      })
-    }
-  }
 }
 </script>

@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from "vue-router";
 Vue.use(VueRouter)
+
+// set routes
 const routes = [
     {path: '/',name:'home', component: ()=> import("@/view/Home.vue")},
-    {path: '/pokemon',name:'home', component: ()=> import("@/view/Home.vue")},
+    {path: '/pokemon',name:'pokemon', component: ()=> import("@/view/Home.vue")},
     {path: '/pokemon/:id', component: ()=> import("@/view/Detail.vue")},
     {path: '/404', component: ()=> import("@/view/PageNotFound.vue")},
     {path: '/:catchAll(.*)', redirect: '/404'}

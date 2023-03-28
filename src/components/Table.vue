@@ -25,7 +25,7 @@
         <th v-for=" (val,key) in pokemon" v-bind:key="key" scope="row"
             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
           <img v-if="key === 'image_url'" class="w-7 h-7 rounded-full" :src="val" alt="image not found">
-          <p v-else>{{ val }}</p>
+          <p v-else>{{ val != 'nan' ? val : '' }}</p>
         </th>
       </tr>
       </tbody>

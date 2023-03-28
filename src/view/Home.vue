@@ -3,7 +3,7 @@
     <div class="text-2xl text-gray-700 font-bold pb-10">
       Welcome !
       <span class="text-gray-500 text-lg">
-          To Pokemon search web site
+          On the Pokemon research site
         </span>
     </div>
     <div class="flex items-center justify-between pb-4">
@@ -106,6 +106,7 @@ export default {
     this.searchPokemon()
   },
   methods: {
+    // function to set previous page
     previousPage() {
       if (this.pagination.current > 1) {
         this.pagination.first -= 1
@@ -113,11 +114,13 @@ export default {
         this.pagination.last -= 1
       }
     },
+    // function to set current page
     setCurrentPage(page) {
       this.pagination.first = page - 1 < 0 ? 0 : page - 1
       this.pagination.current = page <= 0 ? 1 : page
       this.pagination.last = page + 1 > this.pages ? this.pages : page + 1
     },
+    // function to go to next page
     nextPage() {
       if (this.pagination.last < this.pages) {
         this.pagination.first += 1
@@ -125,56 +128,68 @@ export default {
         this.pagination.last += 1
       }
     },
-    async searchPokemon() {
-      let searchData = {}
-      if (this.search_text.length > 0) {
-        searchData['name'] = this.search_text
-      }
-      if (this.search_type.length > 0) {
-        searchData['type'] = this.search_type
-      }
-      searchData['show'] = this.show
-      searchData['page'] = this.pagination.current
-      await api.post("/pokemon", searchData).then(response => {
-        this.pokemon = response.data.pokemon
-        this.pages = response.data.pages
-      }).catch(errors => {
-        return errors
-      })
-    },
-    async getType() {
-      await api.get("/type").then(response => {
-        console.log(response)
-        this.types = response.data.types
-      }).catch(errors => {
-        return errors
-      })
-    },
+    // function to set default Pagination
     setPagination() {
       this.pagination = {
         first: 0,
         current: 1,
         last: 2
       }
-    }
+    },
+    // function to execute serach action
+    async searchPokemon() {
+      // request dataFrame
+      let dataFrame = {}
+      // if search text is not empty add it to dataFrame
+      if (this.search_text.length > 0) {
+        dataFrame['name'] = this.search_text
+      }
+      // if search type is not empty add it to dataFrame
+      if (this.search_type.length > 0) {
+        dataFrame['type'] = this.search_type
+      }
+      // add show value to dataFrame
+      dataFrame['show'] = this.show
+      // add current data to dataFrame
+      dataFrame['page'] = this.pagination.current
+
+      // get pokemon data with dataframe condition
+      await api.post("/pokemon", dataFrame).then(response => {
+        this.pokemon = response.data.pokemon
+        this.pages = response.data.pages
+      }).catch(errors => {
+        // todo: perform errors
+        return errors
+      })
+    },
+    // function get all ditinct pokemon type in type 1 and type2
+    async getType() {
+      await api.get("/type").then(response => {
+        console.log(response)
+        this.types = response.data.types
+      }).catch(errors => {
+        // todo: perform errors
+        return errors
+      })
+    },
   },
   watch: {
     'pagination.current': function () {
-      // If "pageData" ever changes, then we will console log its new value.
+      // If "curent page" ever changes, then we will console log its new value.
       this.searchPokemon()
     },
     search_text: function () {
-      // If "pageData" ever changes, then we will console log its new value.
+      // If "search_text change" ever changes, then we will console log its new value.
       this.setPagination()
       this.searchPokemon()
     },
     search_type: function () {
-      // If "pageData" ever changes, then we will console log its new value.
+      // If "search_type" ever changes, then we will console log its new value.
       this.setPagination()
       this.searchPokemon()
     },
     show: function () {
-      // If "pageData" ever changes, then we will console log its new value.
+      // If "show" ever changes, then we will console log its new value.
       this.setPagination()
       this.searchPokemon()
     }
